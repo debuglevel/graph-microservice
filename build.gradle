@@ -161,12 +161,6 @@ dependencies {
     //implementation "io.micronaut.views:micronaut-views-rocker"
     //implementation "io.micronaut.views:micronaut-views-soy"
 
-    // Micronaut gRPC
-    implementation "io.micronaut.grpc:micronaut-grpc-server-runtime"
-    implementation "io.micronaut.grpc:micronaut-grpc-client-runtime"
-    implementation "io.grpc:grpc-services:$grpcVersion"
-    implementation "io.grpc:grpc-kotlin-stub:$grpcKotlinVersion"
-
     // Debuglevel Microservice Commons
     //implementation "com.github.debuglevel:microservice-commons:f24dd3964f"
 }
@@ -262,29 +256,29 @@ hibernate {
     }
 }
 
-// gRPC
-sourceSets {
-    main {
-        java {
-            srcDirs 'build/generated/source/proto/main/grpc'
-            srcDirs 'build/generated/source/proto/main/grpckt'
-            srcDirs 'build/generated/source/proto/main/java'
-        }
-    }
-}
-protobuf {
-    protoc { artifact = "com.google.protobuf:protoc:$protocVersion" }
-    plugins {
-        grpc { artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion" }
-        grpckt { artifact = "io.grpc:protoc-gen-grpc-kotlin:$grpcKotlinVersion:jdk7@jar" }
-    }
-    generateProtoTasks {
-        all()*.plugins {
-            grpc {}
-            grpckt {}
-        }
-    }
-}
+//// gRPC
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs 'build/generated/source/proto/main/grpc'
+//            srcDirs 'build/generated/source/proto/main/grpckt'
+//            srcDirs 'build/generated/source/proto/main/java'
+//        }
+//    }
+//}
+//protobuf {
+//    protoc { artifact = "com.google.protobuf:protoc:$protocVersion" }
+//    plugins {
+//        grpc { artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion" }
+//        grpckt { artifact = "io.grpc:protoc-gen-grpc-kotlin:$grpcKotlinVersion:jdk7@jar" }
+//    }
+//    generateProtoTasks {
+//        all()*.plugins {
+//            grpc {}
+//            grpckt {}
+//        }
+//    }
+//}
 
 // Filter out beta versions et cetera on dependency update check.
 dependencyUpdates.resolutionStrategy {

@@ -1,5 +1,5 @@
 app:
-  greetings:
+  graph:
     default-language: "null" # note that "null" must be enclosed by quotation marks, as it would be unset otherwise
     unknown-language: "unknown" # note that key should not be camelCase, as uppercase characters may lead to problems in configuration binding
     persons:
@@ -15,7 +15,7 @@ app:
 
 micronaut:
   application:
-    name: greeter
+    name: graph
     instance:
       id: ${random.shortuuid} # instance ID should be set random if Consul registration is active to avoid collisions (default ID would be the port number)
   server:

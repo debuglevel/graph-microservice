@@ -1,4 +1,4 @@
-package de.debuglevel.graph.person
+package de.debuglevel.graph.graph
 
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client

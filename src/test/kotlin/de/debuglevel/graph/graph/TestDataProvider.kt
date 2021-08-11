@@ -1,4 +1,4 @@
-package de.debuglevel.graph.person
+package de.debuglevel.graph.graph
 
 import java.util.stream.Stream
 

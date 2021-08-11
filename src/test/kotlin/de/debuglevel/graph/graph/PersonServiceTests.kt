@@ -1,4 +1,4 @@
-package de.debuglevel.graph.person
+package de.debuglevel.graph.graph
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.assertj.core.api.Assertions.assertThat

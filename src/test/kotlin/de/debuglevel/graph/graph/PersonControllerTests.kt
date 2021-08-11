@@ -1,4 +1,4 @@
-package de.debuglevel.graph.person
+package de.debuglevel.graph.graph
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.exceptions.HttpClientResponseException

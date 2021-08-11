@@ -1,10 +1,10 @@
-package de.debuglevel.graph.person
+package de.debuglevel.graph.graph
 
 import io.micronaut.context.annotation.ConfigurationProperties
 import java.time.Duration
 
-@ConfigurationProperties("app.greetings.persons")
-class PersonProperties {
+@ConfigurationProperties("app.graph.graphs")
+class GraphProperties {
     var someDuration: Duration = Duration.ofSeconds(1)
     var someText: String = "default"
     var someInteger: Int = 1

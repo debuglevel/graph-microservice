@@ -46,7 +46,6 @@ $ curl --location --request POST 'http://localhost:8080/graphs/' \
     }
   ]
 }'
-
 ```
 
 ### Get graph
@@ -72,6 +71,7 @@ $ curl --location --request GET 'http://localhost:8080/graphs/d4208e71-1253-46aa
 ```
 
 ### Get rendered graph
+
 ```bash
 $ curl --location --request GET 'http://localhost:8080/graphs/d4208e71-1253-46aa-80e7-ab7b88e4e32d/renderings/?format=SVG_WITHOUT_XML_HEADER'
 
@@ -100,46 +100,6 @@ $ curl --location --request GET 'http://localhost:8080/graphs/d4208e71-1253-46aa
 </g>
 </g>
 </svg>
-```
-
-## gRPC API
-
-For services that primarily handle RPC-style requests (in contrast to resource-orientated REST)
-, [gRPC](https://grpc.io/) might be a better approach.
-
-### Protocol buffer and Service definitions
-
-`*.proto` files in `src/main/proto/` describe the gRPC services and their protobuf.
-
-### Generation
-
-`./gradlew generateProto` generates Java/Kotlin files from the service and protobuf definitions
-at `src/main/proto/*.proto`. They will be placed at `build/generated/source/proto/main/` and contain classes for
-the `message`s and functions for the `service` `rpc`s.
-
-### Endpoint implementation
-
-Implementing endpoints is quite simple and demonstrated in `GreetingEndpoint`.
-
-### List services
-
-As gRPC server reflection is provided by the `ReflectionFactory`, `grpcurl` can list all available services:
-
-```
-$ ./grpcurl -plaintext localhost:50051 list
-greeting.Greeting
-grpc.reflection.v1alpha.ServerReflection
-```
-
-### Call
-
-A gRPC call can be made with:
-
-```
-$ ./grpcurl -plaintext -d '{"name":"Hans", "locale":"de_DE"}' localhost:50051 greeting.Greeting/Greet
-{
-  "message": "Grüß Gott, Hans"
-}
 ```
 
 ## Configuration

@@ -165,8 +165,8 @@ dependencies {
     //implementation "com.github.debuglevel:microservice-commons:f24dd3964f"
 
     // Graph Library
-    //implementation 'com.github.debuglevel:java-graph-library:337047a425' // TODO: replace by release once it is available
-    implementation 'de.debuglevel.graphlibrary:graphlibrary:0.0.2-SNAPSHOT'
+    implementation 'com.github.debuglevel:java-graph-library:0.0.2' // TODO: replace by maven central release once it is available
+    //implementation 'de.debuglevel.graphlibrary:graphlibrary:0.0.2-SNAPSHOT'
     implementation 'guru.nidi:graphviz-java:0.18.1' // TODO: because the lib above isn't fat yet
 }
 

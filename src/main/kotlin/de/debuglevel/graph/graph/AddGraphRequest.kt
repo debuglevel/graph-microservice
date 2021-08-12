@@ -21,8 +21,8 @@ data class AddGraphRequest(
 
         this.edges.forEach { edge ->
             val builtEdge = Edge(
-                start = builtGraph.getVertices().single { vertex -> vertex.content == edge.startVertexId },
-                end = builtGraph.getVertices().single { vertex -> vertex.content == edge.endVertexId },
+                start = builtGraph.vertices.single { vertex -> vertex.content == edge.startVertexId },
+                end = builtGraph.vertices.single { vertex -> vertex.content == edge.endVertexId },
             )
             builtGraph.addEdge(builtEdge)
         }

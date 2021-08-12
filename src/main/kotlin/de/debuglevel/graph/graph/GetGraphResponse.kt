@@ -12,8 +12,8 @@ data class GetGraphResponse(
     constructor(graph: Graph) : this(
         graph.id!!,
         graph.label,
-        graph.graph.getVertices().map { GetVertexResponse(it) },
-        graph.graph.getEdges().map { GetEdgeResponse(it) },
+        graph.graph.vertices.map { GetVertexResponse(it) },
+        graph.graph.edges.map { GetEdgeResponse(it) },
         graph.transitiveReduction,
     )
 }

@@ -61,7 +61,7 @@ mainClassName = _mainClass
 
 repositories {
     mavenCentral()
-//    mavenLocal()
+    mavenLocal()
     maven {
         url "https://jitpack.io"
 //        // workaround to be able to specify a git hash as jitpack version
@@ -165,7 +165,8 @@ dependencies {
     //implementation "com.github.debuglevel:microservice-commons:f24dd3964f"
 
     // Graph Library
-    implementation 'com.github.debuglevel:java-graph-library:337047a425' // TODO: replace by release once it is available
+    //implementation 'com.github.debuglevel:java-graph-library:337047a425' // TODO: replace by release once it is available
+    implementation 'de.debuglevel.graphlibrary:graphlibrary:0.0.2-SNAPSHOT'
 }
 
 // Java configuration

@@ -6,8 +6,10 @@ import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import io.swagger.v3.oas.annotations.tags.Tag
 import mu.KotlinLogging
+import java.io.ByteArrayOutputStream
 import java.net.URI
 import java.util.*
+
 
 @Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("/graphs")
@@ -49,6 +51,30 @@ class GraphController(private val graphService: GraphService) {
             HttpResponse.ok(getGraphResponse)
         } catch (e: GraphService.ItemNotFoundException) {
             logger.debug { "Getting graph $id failed: ${e.message}" }
+            HttpResponse.notFound()
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError()
+        }
+    }
+
+    /**
+     * Get rendered graph
+     * @param id ID of the graph
+     * @return A graph rendering
+     */
+    @Get("/{id}/renderings")
+    fun getOneGraphRender(id: UUID, @QueryValue format: Format): HttpResponse<ByteArray> {
+        logger.debug("Called getOneGraphRender($id, $format)")
+        return try {
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            graphService.writeFormat(id, byteArrayOutputStream, format)
+            val byteArray = byteArrayOutputStream.toByteArray()
+
+            HttpResponse.ok(byteArray)
+        }
+        catch (e: GraphService.ItemNotFoundException) {
+            logger.debug { "Getting graph $id rendering failed: ${e.message}" }
             HttpResponse.notFound()
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }

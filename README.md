@@ -68,6 +68,37 @@ $ curl --location --request GET 'http://localhost:8080/graphs/d4208e71-1253-46aa
 }
 ```
 
+### Get rendered graph
+```bash
+$ curl --location --request GET 'http://localhost:8080/graphs/d4208e71-1253-46aa-80e7-ab7b88e4e32d/renderings/?format=SVG_WITHOUT_XML_HEADER'
+
+<svg width="129px" height="155px"
+ viewBox="0.00 0.00 97.10 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform=" rotate(0) translate(4 112)">
+<title>graphname</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-112 93.1019,-112 93.1019,4 -4,4"/>
+<!-- &#45;1412758549 -->
+<g id="node1" class="node">
+<title>&#45;1412758549</title>
+<ellipse fill="#ebebeb" stroke="#000000" cx="44.5509" cy="-90" rx="44.6019" ry="18"/>
+<text text-anchor="middle" x="44.5509" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000">Vertex 1</text>
+</g>
+<!-- &#45;525253907 -->
+<g id="node2" class="node">
+<title>&#45;525253907</title>
+<ellipse fill="#ebebeb" stroke="#000000" cx="44.5509" cy="-18" rx="44.6019" ry="18"/>
+<text text-anchor="middle" x="44.5509" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">Vertex 2</text>
+</g>
+<!-- &#45;1412758549&#45;&gt;&#45;525253907 -->
+<g id="edge1" class="edge">
+<title>&#45;1412758549&#45;&gt;&#45;525253907</title>
+<path fill="none" stroke="#000000" d="M44.5509,-71.8314C44.5509,-64.131 44.5509,-54.9743 44.5509,-46.4166"/>
+<polygon fill="#000000" stroke="#000000" points="48.051,-46.4132 44.5509,-36.4133 41.051,-46.4133 48.051,-46.4132"/>
+</g>
+</g>
+</svg>
+```
+
 ## gRPC API
 
 For services that primarily handle RPC-style requests (in contrast to resource-orientated REST)

@@ -1,12 +1,11 @@
 package de.debuglevel.graph.graph
 
+import de.debuglevel.graphlibrary.export.DotExporter
+import de.debuglevel.graphlibrary.export.GraphvizExporter
 import mu.KotlinLogging
-import java.io.InputStream
-import java.io.PipedInputStream
-import java.io.PipedOutputStream
+import java.io.OutputStream
 import java.util.*
 import javax.inject.Singleton
-import kotlin.concurrent.thread
 
 @Singleton
 class GraphService(
@@ -38,13 +37,35 @@ class GraphService(
     fun get(id: UUID): Graph {
         logger.debug { "Getting graph with ID '$id'..." }
 
-        val graph: Graph = graphs.getOrElse(id) {
+        val graph = graphs.getOrElse(id) {
             logger.debug { "Getting graph with ID '$id' failed" }
             throw ItemNotFoundException(id)
         }
 
         logger.debug { "Got graph with ID '$id': $graph" }
         return graph
+    }
+
+    fun writeFormat(id: UUID, outputStream: OutputStream, format: Format) {
+        logger.debug { "Writing graph SVG with ID '$id'..." }
+
+        val graph = get(id)
+        val dot = DotExporter.generate(graph.graph)
+
+        if (format == Format.DOT) {
+            outputStream.writer().use { it.write(dot) }
+        } else {
+            val graphvizFormat = when (format) {
+                Format.PNG -> guru.nidi.graphviz.engine.Format.PNG
+                Format.SVG -> guru.nidi.graphviz.engine.Format.SVG_STANDALONE
+                Format.SVG_WITHOUT_XML_HEADER -> guru.nidi.graphviz.engine.Format.SVG
+                Format.DOT -> throw IllegalArgumentException("DOT should have been handled above.")
+            }
+
+            GraphvizExporter.render(dot, outputStream, graphvizFormat)
+        }
+
+        logger.debug { "Wrote graph SVG with ID '$id': $graph" }
     }
 
     fun add(graph: Graph): Graph {

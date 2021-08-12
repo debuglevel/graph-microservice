@@ -7,11 +7,13 @@ data class GetGraphResponse(
     val label: String,
     val vertices: List<GetVertexResponse>,
     val edges: List<GetEdgeResponse>,
+    val transitiveReduction: Boolean,
 ) {
     constructor(graph: Graph) : this(
         graph.id!!,
         graph.label,
         graph.graph.getVertices().map { GetVertexResponse(it) },
         graph.graph.getEdges().map { GetEdgeResponse(it) },
+        graph.transitiveReduction,
     )
 }

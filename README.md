@@ -26,6 +26,7 @@ $ curl --location --request POST 'http://localhost:8080/graphs/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "label": "My Graph",
+  "transitiveReduction": true,
   "vertices": [
     {
       "id": "v1",
@@ -33,7 +34,9 @@ $ curl --location --request POST 'http://localhost:8080/graphs/' \
     },
     {
       "id": "v2",
-      "label": "Vertex 2"
+      "label": "Vertex 2",
+      "color": "Red",
+      "shape": "Rectangle"
     }
   ],
   "edges": [

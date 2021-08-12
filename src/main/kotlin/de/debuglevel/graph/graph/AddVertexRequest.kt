@@ -8,6 +8,9 @@ import de.debuglevel.graphlibrary.Vertex
 data class AddVertexRequest(
     val id: String,
     val label: String,
+    val color: Color = Color.Blue,
+    val shape: Shape = Shape.Ellipse,
+    val tooltip: String = "",
 ) {
 //    constructor(vertex: Vertex) : this(
 //        id = vertex.id,
@@ -17,9 +20,9 @@ data class AddVertexRequest(
     fun toVertex(): Vertex<String> {
         return Vertex(
             content = id,
-            color = Color.Gray,
-            shape = Shape.Ellipse,
-            tooltip = "",
+            color = color,
+            shape = shape,
+            tooltip = tooltip,
             text = label,
         )
     }

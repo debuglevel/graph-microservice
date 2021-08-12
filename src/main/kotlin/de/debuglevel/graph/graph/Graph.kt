@@ -11,5 +11,6 @@ data class Graph(
 //    @GeneratedValue
     var id: UUID?,
     var label: String,
-    var graph: de.debuglevel.graphlibrary.Graph<String>
+    var graph: de.debuglevel.graphlibrary.Graph<String>,
+    var transitiveReduction: Boolean,
 )

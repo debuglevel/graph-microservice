@@ -10,334 +10,231 @@ info:
     url: https://unlicense.org/
   version: "0.1"
 paths:
-  /greetings/{name}:
+  /graphs:
     get:
       tags:
-        - greetings
-      summary: "Get a greeting for a person. If given, the greeting is localized in\
-        \ a language."
-      description: "Get a greeting for a person. If given, the greeting is localized\
-        \ in a language."
-      operationId: getOneGreeting
-      parameters:
-        - name: name
-          in: path
-          description: Name of the person to greet
-          required: true
-          schema:
-            type: string
-        - name: language
-          in: query
-          description: The language to greet the person in
-          required: false
-          schema:
-            type: string
-            nullable: true
+      - graphs
+      summary: Get all graphs
+      description: Get all graphs
+      operationId: getAllGraphs
+      parameters: []
       responses:
         default:
-          description: A greeting for a person in a given language
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Greeting'
-  /greetings:
-    get:
-      tags:
-        - greetings
-      summary: Gets some greetings.
-      description: Gets some greetings.
-      operationId: getAllGreetings
-      parameters: [ ]
-      responses:
-        default:
-          description: Some greetings
+          description: All graphs
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Greeting'
+                  $ref: '#/components/schemas/GetGraphResponse'
     post:
       tags:
-        - greetings
-      summary: "Get a greeting for a person. If given, the greeting is localized in\
-        \ a language."
-      description: "Get a greeting for a person. If given, the greeting is localized\
-        \ in a language."
-      operationId: postOneGreeting
-      parameters: [ ]
+      - graphs
+      summary: Create a graph.
+      description: Create a graph.
+      operationId: postOneGraph
+      parameters: []
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                greetingRequest:
-                  $ref: '#/components/schemas/GreetingRequest'
+                addGraphRequest:
+                  $ref: '#/components/schemas/AddGraphRequest'
         required: true
       responses:
         default:
-          description: A greeting for a person in a given language
+          description: A graph with their ID
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Greeting'
-  /persons:
-    get:
-      tags:
-        - persons
-      summary: Get all persons
-      description: Get all persons
-      operationId: getAllPersons
-      parameters: [ ]
-      responses:
-        default:
-          description: All persons
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/GetPersonResponse'
-    post:
-      tags:
-        - persons
-      summary: Create a person.
-      description: Create a person.
-      operationId: postOnePerson
-      parameters: [ ]
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                addPersonRequest:
-                  $ref: '#/components/schemas/AddPersonRequest'
-        required: true
-      responses:
-        default:
-          description: A person with their ID
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AddPersonResponse'
+                $ref: '#/components/schemas/AddGraphResponse'
     delete:
       tags:
-        - persons
-      summary: Delete all person.
-      description: Delete all person.
-      operationId: deleteAllPersons
-      parameters: [ ]
+      - graphs
+      summary: Delete all graph.
+      description: Delete all graph.
+      operationId: deleteAllGraphs
+      parameters: []
       responses:
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unit'
-  /persons/{id}:
+  /graphs/{id}:
     get:
       tags:
-        - persons
-      summary: Get a person
-      description: Get a person
-      operationId: getOnePerson
+      - graphs
+      summary: Get a graph
+      description: Get a graph
+      operationId: getOneGraph
       parameters:
-        - name: id
-          in: path
-          description: ID of the person
-          required: true
-          schema:
-            type: string
-            format: uuid
-      responses:
-        default:
-          description: A person
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetPersonResponse'
-    put:
-      tags:
-        - persons
-      summary: Update a person.
-      description: Update a person.
-      operationId: putOnePerson
-      parameters:
-        - name: id
-          in: path
-          description: ID of the person
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                updatePersonRequest:
-                  $ref: '#/components/schemas/UpdatePersonRequest'
+      - name: id
+        in: path
+        description: ID of the graph
         required: true
+        schema:
+          type: string
+          format: uuid
       responses:
         default:
-          description: The updated person
+          description: A graph
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdatePersonResponse'
+                $ref: '#/components/schemas/GetGraphResponse'
     delete:
       tags:
-        - persons
-      summary: Delete a person.
-      description: Delete a person.
-      operationId: deleteOnePerson
+      - graphs
+      summary: Delete a graph.
+      description: Delete a graph.
+      operationId: deleteOneGraph
       parameters:
-        - name: id
-          in: path
-          description: ID of the person
-          required: true
-          schema:
-            type: string
-            format: uuid
+      - name: id
+        in: path
+        description: ID of the graph
+        required: true
+        schema:
+          type: string
+          format: uuid
       responses:
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unit'
-  /persons/endlessRandom:
+  /graphs/{id}/renderings:
     get:
       tags:
-        - persons
-      summary: Download a never ending file of random names
-      description: Download a never ending file of random names
-      operationId: downloadRandomEndless
-      parameters: [ ]
+      - graphs
+      summary: Get rendered graph
+      description: Get rendered graph
+      operationId: getOneGraphRender
+      parameters:
+      - name: id
+        in: path
+        description: ID of the graph
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: format
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Format'
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StreamedFile'
-  /persons/VIPs:
-    get:
-      tags:
-        - persons
-      summary: Get all VIPs
-      description: Get all VIPs
-      operationId: getVIPs
-      parameters: [ ]
-      responses:
-        default:
-          description: All VIPs
+          description: A graph rendering
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/GetPersonResponse'
+                  type: string
+                  format: byte
 components:
   schemas:
-    Greeting:
-      type: object
-      properties:
-        greeting:
-          type: string
-      description: A greeting
-    GreetingRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        language:
-          type: string
-          nullable: true
-    GetPersonResponse:
+    GetGraphResponse:
       type: object
       properties:
         id:
           type: string
           format: uuid
-        name:
+        label:
           type: string
-    StreamedFile:
-      type: object
-      properties:
-        lastModified:
-          type: integer
-          format: int64
-        length:
-          type: integer
-          format: int64
-        mediaType:
-          $ref: '#/components/schemas/MediaType'
-        inputStream:
-          $ref: '#/components/schemas/InputStream'
-    MediaType:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        subtype:
-          type: string
-        extension:
-          type: string
-        parameters:
+        vertices:
           type: array
           items:
-            type: string
-        quality:
-          type: string
-        qualityAsNumber:
-          type: number
-        version:
-          type: string
-        charset:
-          $ref: '#/components/schemas/Charset'
-        textBased:
-          type: boolean
-    Charset:
-      type: object
-      properties:
-        registered:
-          type: boolean
-        name:
-          type: string
-        aliases:
+            $ref: '#/components/schemas/GetVertexResponse'
+        edges:
           type: array
           items:
-            type: string
-    InputStream:
+            $ref: '#/components/schemas/GetEdgeResponse'
+        transitiveReduction:
+          type: boolean
+    GetVertexResponse:
       type: object
-    AddPersonResponse:
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        color:
+          $ref: '#/components/schemas/Color'
+        shape:
+          $ref: '#/components/schemas/Shape'
+    Color:
+      type: string
+      enum:
+      - Green
+      - Red
+      - Yellow
+      - Blue
+      - Gray
+    Shape:
+      type: string
+      enum:
+      - Ellipse
+      - Rectangle
+    GetEdgeResponse:
+      type: object
+      properties:
+        startVertexId:
+          type: string
+        endVertexId:
+          type: string
+    Format:
+      type: string
+      enum:
+      - PNG
+      - SVG
+      - SVG_WITHOUT_XML_HEADER
+      - DOT
+    AddGraphResponse:
       type: object
       properties:
         id:
           type: string
           format: uuid
-        name:
+        label:
           type: string
-    AddPersonRequest:
+    AddGraphRequest:
       type: object
       properties:
-        name:
+        label:
           type: string
-    UpdatePersonResponse:
+        vertices:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddVertexRequest'
+        edges:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddEdgeRequest'
+        transitiveReduction:
+          type: boolean
+    AddVertexRequest:
       type: object
       properties:
         id:
           type: string
-          format: uuid
-        name:
+        label:
           type: string
-    UpdatePersonRequest:
+        color:
+          $ref: '#/components/schemas/Color'
+        shape:
+          $ref: '#/components/schemas/Shape'
+        tooltip:
+          type: string
+    AddEdgeRequest:
       type: object
       properties:
-        name:
+        startVertexId:
+          type: string
+        endVertexId:
           type: string
     Unit:
       type: object

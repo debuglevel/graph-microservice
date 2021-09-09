@@ -8,6 +8,8 @@
 
 # Graph Microservice
 
+POST a defintion of a (directed) graph (i.e. vertices and the edges between them). It can perform a [transitive reduction](https://en.wikipedia.org/wiki/Transitive_reduction), i.e. remove redundant edges. The graph can be GET as a rendered visualization (e.g. SVG or PNG).
+
 ## HTTP API
 
 ### OpenAPI / Swagger

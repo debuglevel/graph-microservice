@@ -19,7 +19,7 @@ paths:
       operationId: getAllGraphs
       parameters: []
       responses:
-        default:
+        "200":
           description: All graphs
           content:
             application/json:
@@ -38,13 +38,15 @@ paths:
         content:
           application/json:
             schema:
+              required:
+              - addGraphRequest
               type: object
               properties:
                 addGraphRequest:
                   $ref: '#/components/schemas/AddGraphRequest'
         required: true
       responses:
-        default:
+        "200":
           description: A graph with their ID
           content:
             application/json:
@@ -58,7 +60,7 @@ paths:
       operationId: deleteAllGraphs
       parameters: []
       responses:
-        default:
+        "200":
           content:
             application/json:
               schema:
@@ -79,7 +81,7 @@ paths:
           type: string
           format: uuid
       responses:
-        default:
+        "200":
           description: A graph
           content:
             application/json:
@@ -100,7 +102,7 @@ paths:
           type: string
           format: uuid
       responses:
-        default:
+        "200":
           content:
             application/json:
               schema:
@@ -126,7 +128,7 @@ paths:
         schema:
           $ref: '#/components/schemas/Format'
       responses:
-        default:
+        "200":
           description: A graph rendering
           content:
             application/json:
@@ -137,7 +139,98 @@ paths:
                   format: byte
 components:
   schemas:
+    AddEdgeRequest:
+      required:
+      - endVertexId
+      - startVertexId
+      type: object
+      properties:
+        startVertexId:
+          type: string
+        endVertexId:
+          type: string
+    AddGraphRequest:
+      required:
+      - edges
+      - label
+      - transitiveReduction
+      - vertices
+      type: object
+      properties:
+        label:
+          type: string
+        vertices:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddVertexRequest'
+        edges:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddEdgeRequest'
+        transitiveReduction:
+          type: boolean
+    AddGraphResponse:
+      required:
+      - id
+      - label
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          type: string
+    AddVertexRequest:
+      required:
+      - color
+      - id
+      - label
+      - shape
+      - tooltip
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        color:
+          $ref: '#/components/schemas/Color'
+        shape:
+          $ref: '#/components/schemas/Shape'
+        tooltip:
+          type: string
+    Color:
+      type: string
+      enum:
+      - Green
+      - Red
+      - Yellow
+      - Blue
+      - Gray
+    Format:
+      type: string
+      enum:
+      - PNG
+      - SVG
+      - SVG_WITHOUT_XML_HEADER
+      - DOT
+    GetEdgeResponse:
+      required:
+      - endVertexId
+      - startVertexId
+      type: object
+      properties:
+        startVertexId:
+          type: string
+        endVertexId:
+          type: string
     GetGraphResponse:
+      required:
+      - edges
+      - id
+      - label
+      - transitiveReduction
+      - vertices
       type: object
       properties:
         id:
@@ -156,6 +249,11 @@ components:
         transitiveReduction:
           type: boolean
     GetVertexResponse:
+      required:
+      - color
+      - id
+      - label
+      - shape
       type: object
       properties:
         id:
@@ -166,75 +264,10 @@ components:
           $ref: '#/components/schemas/Color'
         shape:
           $ref: '#/components/schemas/Shape'
-    Color:
-      type: string
-      enum:
-      - Green
-      - Red
-      - Yellow
-      - Blue
-      - Gray
     Shape:
       type: string
       enum:
       - Ellipse
       - Rectangle
-    GetEdgeResponse:
-      type: object
-      properties:
-        startVertexId:
-          type: string
-        endVertexId:
-          type: string
-    Format:
-      type: string
-      enum:
-      - PNG
-      - SVG
-      - SVG_WITHOUT_XML_HEADER
-      - DOT
-    AddGraphResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        label:
-          type: string
-    AddGraphRequest:
-      type: object
-      properties:
-        label:
-          type: string
-        vertices:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddVertexRequest'
-        edges:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddEdgeRequest'
-        transitiveReduction:
-          type: boolean
-    AddVertexRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        label:
-          type: string
-        color:
-          $ref: '#/components/schemas/Color'
-        shape:
-          $ref: '#/components/schemas/Shape'
-        tooltip:
-          type: string
-    AddEdgeRequest:
-      type: object
-      properties:
-        startVertexId:
-          type: string
-        endVertexId:
-          type: string
     Unit:
       type: object

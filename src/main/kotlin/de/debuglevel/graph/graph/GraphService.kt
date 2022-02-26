@@ -5,7 +5,7 @@ import de.debuglevel.graphlibrary.export.GraphvizExporter
 import mu.KotlinLogging
 import java.io.OutputStream
 import java.util.*
-import javax.inject.Singleton
+import jakarta.inject.Singleton
 
 @Singleton
 class GraphService(
